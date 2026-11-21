@@ -281,6 +281,15 @@ h1,h2,h3{font-family:var(--font-head);font-weight:400;line-height:1.08;margin:0;
 .mine .stamp::before{border-color:var(--on-terra)}
 .mine p{margin:0;font-size:15.5px}
 .mine b{color:#F1BE57}
+.three{margin-top:18px;max-width:720px;display:flex;gap:14px;align-items:center;background:var(--leaf-soft);border:2px solid var(--leaf);border-radius:14px;padding:14px 16px}
+.three-n{flex:none;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--leaf);color:var(--paper);font-family:var(--font-head);font-size:24px;transform:rotate(-6deg)}
+.three p{margin:0;font-size:15.5px}
+.evals{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-self:center}
+.evals span{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;border:2px dashed var(--line);border-radius:12px;padding:12px 6px;font-size:13px;color:var(--ink-soft)}
+.evals span:first-child{border-style:solid;border-color:var(--leaf);background:var(--leaf-soft);color:var(--ink)}
+.evals b{font-family:var(--font-head);font-weight:400;font-size:24px;color:var(--ink)}
+.evals i{font-style:normal;font-family:var(--font-hand);font-weight:700;font-size:15px;color:var(--terra)}
+.evals span:first-child i{color:var(--leaf)}
 .name-card{margin-top:18px;max-width:720px;border:2px dashed var(--terra);border-radius:14px;padding:14px 16px;background:var(--card)}
 .name-card .hand{color:var(--terra);font-size:17px}
 .name-card .nm{font-family:var(--font-head);font-size:clamp(19px,3vw,24px);margin:2px 0 6px}
@@ -556,7 +565,7 @@ function renderDetail(s){
       <ol class="steps-list">
         <li class="rv" style="--d:6"><b>Una evidencia más</b>La coordinación del TEI y la tutoría del grupo rellenan una rúbrica breve: asiste a los encuentros, hace el seguimiento de su alumno/a de 1.º, da ejemplo y avisa si ve algo.</li>
         <li class="rv" style="--d:7"><b>Dentro del criterio</b>Esa nota entra como una evidencia más del criterio elegido, que se califica con la media de sus evidencias (Proyecto Educativo, E.2.2).</li>
-        <li class="rv" style="--d:8"><b>En Séneca</b>Crea en tu cuaderno una actividad con el criterio ${s.a.c}, asignada solo al alumnado tutor. Te lo enseñamos con capturas.
+        <li class="rv" style="--d:8"><b>En Séneca</b>Crea en tu cuaderno una actividad con el criterio ${s.a.c}, asignada solo al alumnado tutor, en <b>cada una de las tres evaluaciones</b>. Te lo enseñamos con capturas.
           <button class="sen-btn" data-go="seneca/${s.id}">Ver el paso a paso →</button></li>
       </ol>
     </div>
@@ -573,10 +582,14 @@ function renderSeneca(s){
   $("#seneca").innerHTML = `
     <button class="back rv" style="--d:0" data-go="materia/${s.id}">← volver a ${s.name}</button>
     <h2 id="t-seneca" class="rv" style="--d:1;font-size:clamp(30px,6.5vw,48px)">Cómo añadirlo en Séneca</h2>
-    <p class="sen-intro rv" style="--d:2">Son unos minutos y se hace una sola vez por grupo y evaluación. Las capturas son de <b>Séneca formación</b> con Tecnología y Digitalización de 3.º; en tu materia los pasos son los mismos.</p>
+    <p class="sen-intro rv" style="--d:2">Son unos minutos por grupo. Las capturas son de <b>Séneca formación</b> con Tecnología y Digitalización de 3.º; en tu materia los pasos son los mismos.</p>
     <div class="mine rv" style="--d:3">
       <span class="stamp"><span>${s.a.c}</span></span>
       <p>En <b>${s.name}</b> tendrás que elegir la <b>competencia específica ${comp}</b> y el <b>criterio ${s.a.c}</b>${isTyd?` (en Séneca: <b>TYD.3.${comp}</b> y <b>TYD.3.${s.a.c}</b>)`:` (en Séneca aparecen con las siglas de tu materia delante: «…3.${comp}» y «…3.${s.a.c}»)`}.${s.b?` Si tu departamento prefiere la opción B, sería el criterio ${s.b.c}.`:''}</p>
+    </div>
+    <div class="three rv" style="--d:4">
+      <span class="three-n">×3</span>
+      <p><b>Una actividad en cada evaluación.</b> El TEI dura todo el curso, así que la actividad hay que crearla en la <b>1.ª</b>, la <b>2.ª</b> y la <b>Ordinaria</b> (la 3.ª), para que el esfuerzo del alumnado tutor cuente en cada trimestre. Crea la primera con estos pasos y copia las otras dos con «Clonar actividad» (te lo explicamos en el paso 8).</p>
     </div>
     <div class="name-card rv" style="--d:4">
       <span class="hand">Nombre de la actividad (cópialo tal cual)</span>
@@ -598,7 +611,7 @@ function renderSeneca(s){
       <li class="rv" style="--d:7"><div>
           <h3>Crea una actividad nueva</h3>
           <div class="path"><span>Cuaderno de clase</span><i>›</i><span>Actividades</span></div>
-          <p>Elige tu <b>grupo de 3.º</b> y la <b>evaluación</b> en la que quieras contarla. Después pulsa el icono de <b>nueva actividad</b>, arriba a la derecha.</p>
+          <p>Elige tu <b>grupo de 3.º</b> y la <b>1.ª Evaluación</b> (las otras dos las copiarás al final). Después pulsa el icono de <b>nueva actividad</b>, arriba a la derecha.</p>
         </div>${shot("p3","Actividades: grupo y evaluación")}</li>
       <li class="rv" style="--d:8"><div>
           <h3>Rellena los datos</h3>
@@ -619,6 +632,17 @@ function renderSeneca(s){
           <p>Pulsa <kbd>✓</kbd> arriba a la derecha. Si la lista aparece vacía, elige otra vez la evaluación y pulsa <b>Refrescar</b>: verás la actividad en la categoría Programa TEI.</p>
           <p class="tip">Si quieres que las familias la vean en iPasen, marca «Mostrar y comunicar a las familias» en <b>Comunicaciones y avisos</b> <b>antes</b> de poner notas: una vez calificada ya no se puede cambiar.</p>
         </div>${shot("p7","La actividad ya está en el cuaderno")}</li>
+      <li class="rv" style="--d:12"><div>
+          <h3>Cópiala a la 2.ª y a la Ordinaria</h3>
+          <p>En la lista de <b>Actividades</b>, pulsa sobre la actividad TEI y elige <b>Clonar actividad</b>. Indica como destino el mismo grupo y la <kbd>2.ª Evaluación</kbd>, y acepta. Repite con la <kbd>Ordinaria</kbd>. Si lo prefieres, también puedes crearla desde cero en cada evaluación repitiendo los pasos 3 a 7.</p>
+          <p class="tip">Revisa en cada copia la pestaña <b>Alumnado destinatario</b>: debe seguir marcada la asignación parcial con el alumnado tutor. Si alguien se incorpora o deja el programa a mitad de curso, cámbialo solo en la evaluación que toque.</p>
+          <p class="tip">Séneca no deja repetir la descripción corta «TEI» en el mismo grupo y evaluación, pero sí en evaluaciones distintas.</p>
+        </div>
+        <div class="evals" aria-label="Las tres evaluaciones">
+          <span><b>1.ª</b>Evaluación<i>✓ creada</i></span>
+          <span><b>2.ª</b>Evaluación<i>clonar</i></span>
+          <span><b>Ord.</b>Ordinaria<i>clonar</i></span>
+        </div></li>
     </ol>
     <div class="note rv" style="--d:12"><p>Las notas las pondrás cuando la coordinación del TEI y la tutoría os pasen la rúbrica de cada tutor o tutora.</p></div>
     <footer>Capturas hechas en Séneca formación (entorno de pruebas). Los nombres del alumnado están ocultos.</footer>`;
