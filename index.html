@@ -32,20 +32,6 @@
   --font-hand:"Kalam", "Comic Sans MS", cursive;
   color-scheme:light;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --paper:#1C2A24; --paper-2:#22332B;
-    --grid:rgba(255,255,255,.045); --margin:rgba(240,122,92,.35);
-    --ink:#F0ECE1; --ink-soft:#B6C0B3;
-    --terra:#F07C5E; --terra-soft:#4A2E25;
-    --ochre:#F1BE57; --ochre-soft:#433820;
-    --leaf:#93C97F; --leaf-soft:#2B4430;
-    --card:#25362E; --line:#3A4D43;
-    --shadow:0 1px 0 rgba(0,0,0,.25), 0 14px 30px -16px rgba(0,0,0,.7);
-    --on-terra:#1C1410;
-    color-scheme:dark;
-  }
-}
 :root[data-theme="dark"]{
   --paper:#1C2A24; --paper-2:#22332B;
   --grid:rgba(255,255,255,.045); --margin:rgba(240,122,92,.35);
@@ -702,8 +688,7 @@ document.addEventListener("click", e=>{
 /* ---------- theme ---------- */
 (function(){
   const root = document.documentElement, btn = $("#themeBtn");
-  const mq = window.matchMedia ? matchMedia("(prefers-color-scheme: dark)") : null;
-  const isDark = () => root.dataset.theme ? root.dataset.theme==="dark" : !!(mq && mq.matches);
+  const isDark = () => root.dataset.theme==="dark";
   function paint(){
     const dark = isDark();
     root.dataset.ui = dark ? "dark" : "light";
@@ -715,7 +700,6 @@ document.addEventListener("click", e=>{
   let saved=null; try{ saved=localStorage.getItem("tei-theme"); }catch(_){}
   if (saved) root.dataset.theme = saved;
   paint();
-  if (mq && mq.addEventListener) mq.addEventListener("change", paint);
   btn.addEventListener("click", ()=>{
     const next = isDark() ? "light" : "dark";
     root.dataset.theme = next;
